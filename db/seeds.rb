@@ -7,6 +7,13 @@
   )
 end
 
+# Creating Admin user
+
+admin = User.create!(
+  email: 'admin@example.com',
+  password: 'password'
+)
+admin.admin!
 users = User.all
 
 # Creating Wikis
