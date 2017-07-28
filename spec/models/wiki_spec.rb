@@ -5,6 +5,7 @@ RSpec.describe Wiki, type: :model do
   let(:my_wiki) { create(:wiki, user: my_user) }
 
   it { is_expected.to belong_to(:user) }
+  it { is_expected.to have_many(:collaborators) }
 
   describe "attributes" do
     it "should have title, body, private and user attributes" do

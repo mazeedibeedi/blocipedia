@@ -1,8 +1,7 @@
 class WikisController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show]
   before_action :set_wiki, except: [:index, :new, :create]
   def index
-    @wikis = user_signed_in? && !current_user.standard? ? Wiki.all : Wiki.where(private: false)
+    @wikis = policy_scope(Wiki)
   end
 
   def new
@@ -11,7 +10,7 @@ class WikisController < ApplicationController
 
   def create
     @wiki = current_user.wikis.new(wiki_params)
-
+    @wiki.user = current_user
     if @wiki.save
       redirect_to @wiki, notice: "Wiki was saved successfully."
     else
